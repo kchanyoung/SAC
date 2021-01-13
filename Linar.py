@@ -61,10 +61,10 @@ l_table = pd.DataFrame( { 'lx_m':np.zeros(112, dtype = float),
                           'ltc_f':np.zeros(112, dtype = float)} )
 
 #계산기수 초기값 세팅
-for i in range(16):
+for i in range(len(q_table.columns)):
     l_table.iloc[0,i] = 100000
 
 l_switch = lambda k : 0.75 if k==0 else 1  # 초년도 생존급부를 조절해주는 switch
 
-for i in range(112):
-    l_table['']
+#for i in range(112):
+#    l_table['']

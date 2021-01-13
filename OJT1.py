@@ -49,18 +49,21 @@ v = 1/(1+i)
 l_table = pd.DataFrame()
 l_table[1] = pd.Series( [100000] * 112, dtype=float)
 l_table[2] = pd.Series( [100000] * 112, dtype=float)
+
 for i in range(xdot):
-    l_table[1][i+1] = l_table[1][i] * ( 1 - q_table[1][i] )
+    l_table.iloc[i+1,0] = l_table.iloc[i,0] * ( 1 - q_table.iloc[i,0] )
     # 납입자는 유지자중 재해장해50% 에 해당하지 않는 사람들이다
-    l_table[2][i+1] = l_table[2][i] * ( 1 - q_table[1][x+i] ) \
-                          * ( 1 - q_table[2][x+i]*(1-0.5*q_table[1][x+i]/(1-np.min([q_table[1][x+i],0.999]))))
+    l_table.iloc[i+1,1] = l_table.iloc[i,1] * ( 1 - q_table.iloc[x+i,1] ) \
+                          * ( 1 - q_table.iloc[x+i,1]*(1-0.5*q_table.iloc[x+i,0]/(1-np.min([q_table.iloc[x+i,0],0.999]))))
 
 D_table = l_table.copy()
 for i in range(xdot):
-    D_table[1][i] = l_table[1][i] * v**i
-    D_table[2][i] = l_table[2][i] * v**i
+    D_table.iloc[i,0] = l_table.iloc[i,0] * v**i
+    D_table.iloc[i,1] = l_table.iloc[i,1] * v**i
 
 N_table = D_table.copy()
 for i in range(xdot):
-    N_table[1][i] = np.sum(D_table[1][i:xdot])
-    N_table[2][i] = np.sum(D_table[2][i:xdot])
+    N_table.iloc[i,0] = np.sum(D_table.iloc[i:xdot,0])
+    N_table.iloc[i,1] = np.sum(D_table.iloc[i:xdot,0])
+
+N_star = 1

@@ -67,4 +67,4 @@ for i in range(len(q_table.columns)):
 l_switch = lambda k : 0.75 if k==0 else 1  # 초년도 생존급부를 조절해주는 switch
 
 #for i in range(112):
-#    l_table['']
+#    lx['']

@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
+from BasicFunc import *
 
 # 위험률 끌어온 후, 남자 여자 위험률 테이블로 분리
-Q_table = pd.read_csv("ojt_1.csv")
+Q_table = pd.read_csv("입원특약.csv")
 q_m = []
 q_f = []
 for i in range(len(Q_table.columns)):
@@ -16,14 +17,14 @@ q_table = q_m
 
 # 담보 종류 코드화
 q_m_dict = { 'Death_Male' : 1,
-           'Disease_Male' : 2}
+             '입원위험률' : 2,
+             'Disease_Male' : 3}
 q_f_dict = { 'Death_Female' : 1,
-           'Disease_Female' : 2}
+             '입원위험률' : 2,
+             'Disease_Female' : 3}
 # q_table.rename( columns = q_m_dict, inplace = True)
 #for key, value in q_m_dict.items():
 #    q_{}.format(value) = pd.Series(q_table[key])
-
-
 
 # 계약 정보
 sex = 1
@@ -48,6 +49,21 @@ beta = 1 - beta2 - beta5
 #이율 관련 정보
 i = 0.025
 v = 1/(1+i)
+
+
+class Cmptation:
+
+    def __init__(self,Qx, Contract):
+        self.lx = self.lxmethod
+
+        self.Dx = self.Dxmethod
+        self.Nx = self.Nxmethod
+        self.Sx = self.Sxmethod
+
+        self.Cx = self.Cxmethod
+        self.Mx = self.Mxmethod
+        self.Rx = self.Rxmethod
+
 
 # lx 계산을 위한 lx 생성
 # lx 1열 : 생존자수
@@ -117,8 +133,8 @@ beta_P_1 = ( Mx.iloc[0,0] - Mx.iloc[n,0] + betadot * ( Nx.iloc[m,0] - Nx.iloc[n,
 
 # Vt 생성
 # Vt 1열 : 기본책임준비금
-Vt = lx.copy()
-for i in range(xdot):
-    if i < m:
+# Vt = lx.copy()
+# for i in range(xdot):
+#     if i < m:
 
 
